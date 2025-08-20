@@ -1,9 +1,25 @@
 {
   "builds": [
-    { "src": "manage.py", "use": "@vercel/python", "config": { "maxLambdaSize": "50mb" } }
+    {
+      "src": "EShop/wsgi.py",
+      "use": "@vercel/python"
+    }
   ],
   "routes": [
-    { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/(.*)", "dest": "manage.py" }
-  ]
+    {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "EShop/wsgi.py"
+    }
+  ],
+  "functions": {
+    "EShop/wsgi.py": {
+      "includeFiles": "staticfiles/**"
+    }
+  },
+  "installCommand": "pip install -r requirements.txt",
+  "buildCommand": "python EShop/manage.py collectstatic --noinput"
 }
