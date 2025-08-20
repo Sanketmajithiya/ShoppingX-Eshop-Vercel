@@ -12,7 +12,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "EShop/wsgi.py"
+      "dest": "EShop/EShop/wsgi.py"
     }
   ],
   "functions": {
