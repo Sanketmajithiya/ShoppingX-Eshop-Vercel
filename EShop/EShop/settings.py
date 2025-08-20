@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # 'material',
     # 'jet',
     # 'grappelli',
+    'cloudinary',
+    'cloudinary_storage',
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -165,7 +167,6 @@ CACHES = {
     }
 }                                                                                                                                                               
 
-
 # Email Handling 
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -175,3 +176,14 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sanketmajithiya@gmail.com'
 EMAIL_HOST_PASSWORD = 'esrgnrzwyxrzyfmd'
+
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': ' dprbgz0xw',
+    'API_KEY': '114513599235556',
+    'API_SECRET': 'wi4P-gSr86ad6oEJaaanGuoLf3I'
+}
