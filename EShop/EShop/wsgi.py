@@ -15,4 +15,4 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'EShop.settings')
 
 application = get_wsgi_application()
 
-app = application  # For compatibility with some WSGI servers that expect 'app' to be defined
+# app = application  # For compatibility with some WSGI servers that expect 'app' to be defined

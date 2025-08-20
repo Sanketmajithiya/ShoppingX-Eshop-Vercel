@@ -1,7 +1,8 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "EShop/wsgi.py",
+      "src": "api/index.py",
       "use": "@vercel/python"
     }
   ],
@@ -12,11 +13,11 @@
     },
     {
       "src": "/(.*)",
-      "dest": "EShop/EShop/wsgi.py"
+      "dest": "api/index.py"
     }
   ],
   "functions": {
-    "EShop/wsgi.py": {
+    "api/index.py": {
       "includeFiles": "staticfiles/**"
     }
   },
