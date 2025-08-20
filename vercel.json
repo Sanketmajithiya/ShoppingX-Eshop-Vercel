@@ -2,12 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.py": {
-      "includeFiles": [
-        "staticfiles/**",
-        "EShop/**",
-        "Store/**",
-        "db.sqlite3"
-      ]
+      "includeFiles": "staticfiles/** EShop/** Store/** db.sqlite3"
     }
   },
   "routes": [
