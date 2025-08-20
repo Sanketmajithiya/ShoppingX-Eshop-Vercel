@@ -18,9 +18,14 @@
   ],
   "functions": {
     "api/index.py": {
-      "includeFiles": "staticfiles/**"
+      "includeFiles": [
+        "staticfiles/**",
+        "EShop/**",
+        "Store/**",
+        "db.sqlite3"
+      ]
     }
   },
   "installCommand": "pip install -r requirements.txt",
-  "buildCommand": "python EShop/manage.py collectstatic --noinput"
+  "buildCommand": "python EShop/manage.py migrate && python EShop/manage.py collectstatic --noinput"
 }

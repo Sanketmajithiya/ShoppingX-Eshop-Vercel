@@ -12,7 +12,6 @@ def send_live_sales_email():
     return f"Emails sent to {len(recipient_list)} users"
 
 
-
 def send_otp_email(email, otp, first_name):
     subject = "Your Password Reset OTP | ShoppingX"
     message = f"""
@@ -26,3 +25,15 @@ def send_otp_email(email, otp, first_name):
         return f"OTP sent to {email}"
     except Exception as e:
         return str(e)
+
+
+
+
+
+
+
+
+
+
+
+
