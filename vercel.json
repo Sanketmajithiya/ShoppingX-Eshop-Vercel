@@ -2,6 +2,7 @@
   "version": 2,
   "functions": {
     "api/index.py": {
+      "runtime": "python3.9",
       "includeFiles": "staticfiles/** EShop/** Store/** db.sqlite3"
     }
   },
@@ -14,7 +15,5 @@
       "src": "/(.*)",
       "dest": "api/index.py"
     }
-  ],
-  "installCommand": "pip install -r requirements.txt",
-  "buildCommand": "python EShop/manage.py migrate && python EShop/manage.py collectstatic --noinput"
+  ]
 }
