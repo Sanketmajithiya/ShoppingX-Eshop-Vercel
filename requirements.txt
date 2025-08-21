@@ -11,7 +11,7 @@ click-repl==0.3.0
 cloudinary==1.44.1
 colorama==0.4.6
 cron-descriptor==1.4.5
-Django==5.1.4
+django>=3.2,<5.0  # Example version range
 django-celery-beat==2.8.1
 django-cloudinary-storage==0.3.0
 django-timezone-field==7.1
