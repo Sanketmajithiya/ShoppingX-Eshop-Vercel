@@ -1,24 +1,3 @@
-{
-<<<<<<< HEAD
-  "version": 2,
-  "functions": {
-    "api/index.py": {
-      "runtime": "python3.9",
-      "includeFiles": "staticfiles/** EShop/** Store/** db.sqlite3"
-    }
-  },
-  "routes": [
-    {
-      "src": "/static/(.*)",
-      "dest": "/staticfiles/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "api/index.py"
-    }
-  ]
-}
-=======
     "version": 2,
     "builds": [
       {
@@ -45,4 +24,4 @@
       }
     ]
   }
->>>>>>> 54c6a92 (Added changes and fixed file names)
+
