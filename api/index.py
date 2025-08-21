@@ -1,4 +1,4 @@
-from EShop.wsgi import application
+from EShop.EShop.wsgi import application 
 
 app = application
 
