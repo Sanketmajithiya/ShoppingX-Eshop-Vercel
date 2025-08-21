@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "version": 2,
   "functions": {
     "api/index.py": {
@@ -17,3 +18,31 @@
     }
   ]
 }
+=======
+    "version": 2,
+    "builds": [
+      {
+        "src": "EShop/EShop/wsgi.py",
+        "use": "@vercel/python",
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+      },
+      {
+        "src": "build_files.sh",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "staticfiles_build"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "EShop/EShop/wsgi.py"
+      }
+    ]
+  }
+>>>>>>> 54c6a92 (Added changes and fixed file names)
