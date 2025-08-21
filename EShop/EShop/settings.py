@@ -30,11 +30,8 @@ DEBUG = True
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', '.now.sh']
 ALLOWED_HOSTS = ['*']
 
-
-
 #celery -A EShop worker --loglevel=info
 #celery -A EShop beat --loglevel=info
-
 
 # Application definition
 
