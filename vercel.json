@@ -26,5 +26,9 @@
       "src": "/(.*)",
       "dest": "EShop/EShop/wsgi.py"
     }
-  ]
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "EShop.settings",
+    "PYTHONPATH": "EShop"
+  }
 }
