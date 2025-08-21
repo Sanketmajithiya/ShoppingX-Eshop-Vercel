@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 {   
     "version": 2,
+=======
+{
+   "version": 2,
+>>>>>>> 89e07cd (#)
     "builds": [
       {
         "src": "EShop/EShop/wsgi.py",
@@ -24,5 +29,9 @@
         "dest": "EShop/EShop/wsgi.py"
       }
     ]
+<<<<<<< HEAD
   }
 
+=======
+  }
+>>>>>>> 89e07cd (#)
