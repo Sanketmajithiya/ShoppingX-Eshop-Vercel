@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "EShop/EShop/wsgi.py",
+      "src": "EShop/wsgi.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
@@ -12,7 +12,7 @@
   ],
   "routes": [
     { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/(.*)", "dest": "EShop/EShop/wsgi.py" }
+    { "src": "/(.*)", "dest": "EShop/wsgi.py" }
   ],
   "buildCommand": "./build.sh"
 }
