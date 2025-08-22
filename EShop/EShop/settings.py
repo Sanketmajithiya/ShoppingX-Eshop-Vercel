@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3r$!*z3=2eji!w4(0+zt4-q7gnysb=2%=3sgoa$xtfgpmm21im'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', '.now.sh']
 # ALLOWED_HOSTS = ['*']
@@ -108,11 +111,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'railway',
-            'USER': 'postgres',
-            'PASSWORD': 'FhrvcZKKxeQBRAqMgXHlXGwKzfEDAGmX',
-            'HOST': 'maglev.proxy.rlwy.net',
-            'PORT': '32375',
+            'NAME': os.getenv("NAME"),
+            'USER': os.getenv("POSTGRES_USER"),
+            'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+            'HOST': os.getenv("POSTGRES_HOST"),
+            'PORT': os.getenv("POSTGRES_PORT"),
         }
     }
 
@@ -155,32 +158,14 @@ USE_TZ = True
 
 
 
-STATIC_HOST = "https://d4663kmspf1sqa.cloudfront.net" if not DEBUG else ""
-STATIC_URL = STATIC_HOST + "/static/"
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# For production: where collectstatic will put files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # <- Changed this from 'static' to 'staticfiles'
 
-
-# Media settings
-MEDIA_URL = '/media/'  # URL path for accessing media files
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Absolute path where media files are stored
-
-if not DEBUG:
-    STORAGES = { 
-        "default": {
-            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        },
-    }
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-RAZORPAY_KEY_ID = 'rzp_test_XJiPjOvNtZi5Mr'
-RAZORPAY_KEY_SECRET = 'ucCLYcZ1CtPnU5TDQYUNBW38'
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 
 # Data Base Cache
 
@@ -204,12 +189,20 @@ EMAIL_HOST_PASSWORD = 'esrgnrzwyxrzyfmd'
 
 
 if not DEBUG:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
-
-if not DEBUG:
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': ' dprbgz0xw',
-        'API_KEY': '114513599235556',
-        'API_SECRET': 'wi4P-gSr86ad6oEJaaanGuoLf3I'
-}
+        'CLOUD_NAME': os.environ.get("CLOUDINARY_CLOUD_NAME"),
+        'API_KEY': os.environ.get("CLOUDINARY_API_KEY"),
+        'API_SECRET': os.environ.get("CLOUDINARY_API_SECRET"),
+    }
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+# Uncomment the following lines if you want to use Cloudinary for static files
+# STATICFILES_STORAGE = "cloudinary_storage.storage.StaticHashedCloudinaryStorage" # 
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
