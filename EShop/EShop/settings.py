@@ -97,23 +97,24 @@ WSGI_APPLICATION = 'EShop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'FhrvcZKKxeQBRAqMgXHlXGwKzfEDAGmX',
-        'HOST': 'maglev.proxy.rlwy.net',
-        'PORT': '32375',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'railway',
+            'USER': 'postgres',
+            'PASSWORD': 'FhrvcZKKxeQBRAqMgXHlXGwKzfEDAGmX',
+            'HOST': 'maglev.proxy.rlwy.net',
+            'PORT': '32375',
+        }
+    }
 
 
 
@@ -141,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -151,24 +152,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'Store/static'),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'Store/static'),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 
-MEDIA_URL = "image/download/"
 
-MEDIA_ROOT = BASE_DIR
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+STATIC_HOST = "https://d4663kmspf1sqa.cloudfront.net" if not DEBUG else ""
+STATIC_URL = STATIC_HOST + "/static/"
+
+# For production: where collectstatic will put files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # <- Changed this from 'static' to 'staticfiles'
+
+
+# Media settings
+MEDIA_URL = '/media/'  # URL path for accessing media files
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Absolute path where media files are stored
+
+if not DEBUG:
+    STORAGES = { 
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -196,12 +203,13 @@ EMAIL_HOST_USER = 'sanketmajithiya@gmail.com'
 EMAIL_HOST_PASSWORD = 'esrgnrzwyxrzyfmd'
 
 
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': ' dprbgz0xw',
-    'API_KEY': '114513599235556',
-    'API_SECRET': 'wi4P-gSr86ad6oEJaaanGuoLf3I'
+if not DEBUG:
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': ' dprbgz0xw',
+        'API_KEY': '114513599235556',
+        'API_SECRET': 'wi4P-gSr86ad6oEJaaanGuoLf3I'
 }
